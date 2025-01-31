@@ -77,10 +77,10 @@ async def get_recurring(message: Message, state: FSMContext) -> None:
             user_id=str(message.from_user.id),
             message=data["text"],
             date=data["date"],
-            recurring=None  
+            recurring=None,
+            telegram_message=message  
         )
         logger.info(msg=f"Пользователь {message.from_user.id} создал разовое напоминание: {data['text']}")
-        await message.answer(text="✅ Напоминание успешно создано!")
         await state.clear()
     else:
         logger.warning(msg=f"Пользователь {message.from_user.id} ввел неверный ответ: {message.text}")
@@ -108,10 +108,10 @@ async def get_recurring_frequency(message: Message, state: FSMContext) -> None:
         user_id=str(object=message.from_user.id),
         message=data["text"],
         date=data["date"],
-        recurring=recurring
+        recurring=recurring,
+        telegram_message=message 
     )
     logger.info(f"Пользователь {message.from_user.id} создал повторяющееся напоминание: {data['text']}, Частота: {message.text}")
-    await message.answer(f"✅ Напоминание успешно создано! Будет повторяться {message.text}.")
     await state.clear()
 
 

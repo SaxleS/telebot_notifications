@@ -1,0 +1,63 @@
+{
+  "users": [
+    {
+      "_id": { "$oid": "679bd56a0cd316637996b04b" },
+      "username": "Alex",
+      "first_name": "S",
+      "registered_at": { "$date": "2025-01-31T10:29:08.746Z" },
+      "timezone": "Europe/Moscow",
+      "user_id": 422840668,
+      "telegram_nick": "saxles"
+    },
+    {
+      "_id": { "$oid": "679bd56a0cd316637996b04c" },
+      "username": "Bob",
+      "first_name": "B",
+      "registered_at": { "$date": "2025-02-01T14:00:00Z" },
+      "timezone": "Europe/Moscow",
+      "user_id": 123456789,
+      "telegram_nick": "bobby"
+    },
+    {
+      "_id": { "$oid": "679bd56a0cd316637996b04d" },
+      "username": "Charlie",
+      "first_name": "C",
+      "registered_at": { "$date": "2025-03-15T08:45:30Z" },
+      "timezone": "America/New_York",
+      "user_id": 987654321,
+      "telegram_nick": "charlie_nyc"
+    }
+  ],
+  "notifications": [
+    {
+      "_id": { "$oid": "679cad0193fb9690a924006a" },
+      "completed": false,
+      "date": { "$date": "2025-02-01T20:00:00Z" },
+      "message": "Напоминание 1",
+      "recurring": "daily",
+      "status": "created",
+      "timestamp": { "$date": "2025-01-31T10:59:13.777Z" },
+      "user_id": 422840688
+    },
+    {
+      "_id": { "$oid": "679cad0193fb9690a924006b" },
+      "completed": true,
+      "date": { "$date": "2025-02-02T16:30:00Z" },
+      "message": "Напоминание 2",
+      "recurring": null,
+      "status": "completed",
+      "timestamp": { "$date": "2025-02-01T11:45:00Z" },
+      "user_id": 123456789
+    },
+    {
+      "_id": { "$oid": "679cad0193fb9690a924006c" },
+      "completed": false,
+      "date": { "$date": "2025-03-03T09:00:00Z" },
+      "message": "Напоминание 3",
+      "recurring": "weekly",
+      "status": "active",
+      "timestamp": { "$date": "2025-02-10T15:30:00Z" },
+      "user_id": 987654321
+    }
+  ]
+}

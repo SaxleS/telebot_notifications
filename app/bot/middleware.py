@@ -5,7 +5,6 @@ from typing import Any, Dict, List
 import pytz
 from aiogram import Bot
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
-from bson import ObjectId
 from app.dependencies.reminder_dependencies import reminder_middleware_notification
 
 logger: logging.Logger = logging.getLogger(name="app_logger")
@@ -24,7 +23,7 @@ class ReminderNotifier:
             try:
                 await self.check_reminders()
             except Exception as e:
-                logger.error(msg=f"❌ Ошибка в обработке уведомлений: {e}")
+                logger.error(msg=f"Ошибка в обработке уведомлений: {e}")
 
             await asyncio.sleep(delay=60)  # Проверяем раз в минуту
 

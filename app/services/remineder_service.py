@@ -1,11 +1,13 @@
 from abc import ABC, abstractmethod
 from datetime import datetime, timedelta
 from typing import List, Dict, Any, Optional
+from aiogram.types import Message
 from motor.motor_asyncio import AsyncIOMotorCollection
 from pymongo.results import UpdateResult
 
 import logging
 from bson import ObjectId
+import pytz
 
 from app.crud.reminder_crud import IReminderRepository, MongoReminderRepository
 
@@ -20,15 +22,50 @@ class ReminderService:
     
     def __init__(self, repository: IReminderRepository) -> None:
         self._repository: IReminderRepository = repository
+
+
+    async def get_user_timezone(self, user_id: str) -> str:
+        """Получает часовой пояс пользователя из базы данных."""
+        user = await users_collection.find_one(filter={"user_id": user_id})
+        return user["timezone"] if user else "UTC"
     
-    async def add_reminder(self, user_id: str, message: str, date: datetime, recurring: Optional[str] = None) -> Any:
-        reminder_data = {
-            "user_id": user_id,
-            "message": message,
-            "date": date,
-            "recurring": recurring
-        }
-        return await self._repository.create(data=reminder_data)
+    async def add_reminder(self, user_id: str, message: str, date: datetime, recurring: Optional[str], telegram_message: Message) -> Any:
+        """Добавляет напоминание, проверяя, что дата не меньше текущего времени пользователя, без изменения пользовательского времени."""
+        
+        try:
+            # Получаем часовой пояс пользователя
+            user_timezone = await self.get_user_timezone(user_id=user_id)
+            user_tz: pytz._UTCclass | pytz.StaticTzInfo | pytz.DstTzInfo = pytz.timezone(zone=user_timezone)
+
+            # Получаем текущее время в UTC и конвертируем в часовой пояс пользователя
+            now: datetime = datetime.now(pytz.utc).astimezone(tz=user_tz)
+
+
+            # Приводим оба значения к UTC для корректного сравнения
+            now_utc: datetime = now.astimezone(tz=pytz.utc)
+            date_utc: datetime = date.astimezone(tz=pytz.utc)
+
+            # Проверяем, что напоминание не создается в прошлом
+            if date_utc < now_utc:
+                await telegram_message.answer(f"❌ Ошибка! Время напоминания не может быть в прошлом.\n"
+                                              f"Вы указали: {date.strftime('%Y-%m-%d %H:%M %Z')}\n"
+                                              f"Текущее время: {now.strftime('%Y-%m-%d %H:%M %Z')}")
+                return
+            
+
+            reminder_data = {
+                "user_id": user_id,
+                "message": message,
+                "date": date, 
+                "recurring": recurring,
+            }
+            await self._repository.create(data=reminder_data)
+
+            await telegram_message.answer(text="✅ Напоминание успешно создано!")
+
+        except Exception:
+            
+            await telegram_message.answer(text=f"❌ Ошибка при создании напоминания")
     
     async def get_all_reminders(self, user_id: str) -> List[Dict[str, Any]]:
         return await self._repository.get_all(user_id=user_id)
@@ -77,7 +114,4 @@ class ReminderServiceNotificationMiddleware(ReminderService):
         )
         return True
     
-    async def get_user_timezone(self, user_id: str) -> str:
-        """Получает часовой пояс пользователя из базы данных."""
-        user = await users_collection.find_one(filter={"user_id": user_id})
-        return user["timezone"] if user else "UTC"
+
