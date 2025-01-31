@@ -1,0 +1,64 @@
+# Игнорирование виртуальных окружений
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Игнорирование файлов среды разработки
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Игнорирование логов и временных файлов
+logs/
+*.log
+*.out
+*.err
+*.pid
+*.seed
+*.bak
+*.orig
+*.rej
+*.sublime-workspace
+
+# Игнорирование зависимостей Poetry
+poetry.lock
+
+# Игнорирование файлов тестирования
+.coverage
+.tox/
+.nox/
+
+# Игнорирование Docker-файлов
+docker-compose.override.yml
+.dockerignore
+.docker/
+.docker_temp/
+.docker_build/
+
+# Игнорирование переменных окружения
+.env
+.env.*
+!.env.example
+
+# Игнорирование файлов базы данных и кэша
+*.sqlite3
+db.sqlite3
+*.db
+*.pdb
+*.mdb
+*.sqlite
+
+# Игнорирование файлов сборки
+dist/
+build/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# Игнорирование кэша pytest
+.pytest_cache/

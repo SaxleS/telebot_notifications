@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "telebot-notifications"
+version = "1.0.0-1"
+description = ""
+authors = ["Aliaksei Saukin <88047550+SaxleS@users.noreply.github.com>"]
+readme = "README.md"
+packages = [{ include = "app" }]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+motor = ">=3.6.1,<4.0.0"
+pydantic = ">=2.10.6,<3.0.0"
+pydantic-settings = ">=2.7.1,<3.0.0"
+aiogram = ">=3.17.0,<4.0.0"
+python-dotenv = "^1.0.0"
+pytz = "^2024.2"
+pytest = "^8.3.4"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.4"
+pytest-asyncio = "^0.25.3"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.pytest.ini_options]
+testpaths = ["app/tests"]
+asyncio_mode = "auto"
+
+
+[tool.poetry.scripts]
+manage = "manage:main"
+start-bot = "scripts.start_bot:main"
