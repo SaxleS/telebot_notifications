@@ -8,9 +8,10 @@ import logging
 from bson import ObjectId
 
 
-from app.core.database import get_mongo
+from app.core.mongo_collections import notification_collection
 
-notification_collection = get_mongo()["notifications"]
+
+
 
 
 class IReminderRepository(ABC):

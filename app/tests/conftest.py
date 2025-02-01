@@ -1,7 +1,7 @@
 import os
 import pytest
 from motor.motor_asyncio import AsyncIOMotorClient
-from app.crud.reminder_crud import MongoReminderRepository
+from app.repositories.reminder_repository import MongoReminderRepository
 from app.services.remineder_service import ReminderService
 
 from app.core.config import get_settings

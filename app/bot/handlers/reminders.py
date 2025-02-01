@@ -15,16 +15,16 @@ from app.bot.keyboards import main_menu, recurring_menu, delete_menu
 from app.dependencies.reminder_dependencies import reminder_notification
 
 
+from app.core.mongo_collections import notification_collection
 
-from app.core.database import get_mongo
 
-notification_collection = get_mongo()["notifications"]
+
 
 
 router = Router()
 
 
-logger: logging.Logger = logging.getLogger(name="app_logger")  # <-- Получаем готовый логгер
+logger: logging.Logger = logging.getLogger(name="app_logger")
 
 
 

@@ -9,12 +9,12 @@ import logging
 from bson import ObjectId
 import pytz
 
-from app.crud.reminder_crud import IReminderRepository, MongoReminderRepository
+from app.repositories.reminder_repository import IReminderRepository, MongoReminderRepository
 
 
-from app.core.database import get_mongo
+from app.core.mongo_collections import users_collection
 
-users_collection = get_mongo()["users"]
+
 
 
 class ReminderService:

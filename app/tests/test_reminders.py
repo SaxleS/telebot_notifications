@@ -5,7 +5,7 @@ from datetime import datetime
 from unittest.mock import AsyncMock
 from bson import ObjectId
 from motor.motor_asyncio import AsyncIOMotorCollection
-from app.crud.reminder_crud import MongoReminderRepository
+from app.repositories.reminder_repository import MongoReminderRepository
 from app.services.remineder_service import ReminderService
 from aiogram.types import Message
 import pytz

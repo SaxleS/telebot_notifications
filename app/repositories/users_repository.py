@@ -4,9 +4,9 @@ from motor.motor_asyncio import AsyncIOMotorCollection
 from abc import ABC, abstractmethod
 
 
-from app.core.database import get_mongo
+from app.core.mongo_collections import users_collection
 
-users_collection = get_mongo()["users"]
+
 
 
 

@@ -6,7 +6,7 @@ from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.context import FSMContext
 
 from app.bot.keyboards import main_menu, settings_menu, timezone_menu
-from app.crud.users_crud import user_service
+from app.repositories.users_repository import user_service
 
 router = Router()
 logger: logging.Logger = logging.getLogger(name="app_logger")
